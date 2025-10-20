@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - Calculator</title>
+  <link rel="stylesheet" href="ent_main_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Calculator Page -->
+  <div class="calculator-page" id="calculatorPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" onclick="openPage('dashboard.html')"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" onclick="openPage('reports.html')"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="#" onclick="openPage('transactions.html')"><i class="fas fa-exchange-alt"></i> Transactions</a>
+        <a href="#" onclick="openPage('invoices.html')"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" onclick="openPage('support.html')"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title" onclick="openPage('ent_main_html.html')">
+        <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" onclick="openModal('faq')">FAQ</span>
+          <span class="nav-link" onclick="openModal('contact')">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="account-icon" onclick="toggleAccount()">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> John Doe</p>
+          <p><i class="fas fa-envelope"></i> johndoe@example.com</p>
+          <p><i class="fas fa-crown"></i> Premium Plan</p>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="calculator-header">
+        <h1><i class="fas fa-calculator"></i> Financial Calculator</h1>
+        <p>Perform quick calculations for your accounting needs</p>
+      </div>
+
+      <div class="calculator-container">
+        <div class="calculator-display">
+          <div class="previous-operand" id="previousOperand"></div>
+          <div class="current-operand" id="currentOperand">0</div>
+        </div>
+        
+        <div class="calculator-buttons">
+          <button class="calc-btn calc-btn-function" data-action="clear">C</button>
+          <button class="calc-btn calc-btn-function" data-action="delete">DEL</button>
+          <button class="calc-btn calc-btn-function" data-action="percentage">%</button>
+          <button class="calc-btn calc-btn-operator" data-action="divide">÷</button>
+          
+          <button class="calc-btn" data-number="7">7</button>
+          <button class="calc-btn" data-number="8">8</button>
+          <button class="calc-btn" data-number="9">9</button>
+          <button class="calc-btn calc-btn-operator" data-action="multiply">×</button>
+          
+          <button class="calc-btn" data-number="4">4</button>
+          <button class="calc-btn" data-number="5">5</button>
+          <button class="calc-btn" data-number="6">6</button>
+          <button class="calc-btn calc-btn-operator" data-action="subtract">−</button>
+          
+          <button class="calc-btn" data-number="1">1</button>
+          <button class="calc-btn" data-number="2">2</button>
+          <button class="calc-btn" data-number="3">3</button>
+          <button class="calc-btn calc-btn-operator" data-action="add">+</button>
+          
+          <button class="calc-btn calc-btn-zero" data-number="0">0</button>
+          <button class="calc-btn" data-action="decimal">.</button>
+          <button class="calc-btn calc-btn-equals" data-action="calculate">=</button>
+        </div>
+      </div>
+
+      <div class="financial-tools">
+        <h2>Financial Tools</h2>
+        <div class="tools-grid">
+          <div class="tool-card" onclick="openTaxCalculator()">
+            <div class="tool-icon">
+              <i class="fas fa-percentage"></i>
+            </div>
+            <h3>Tax Calculator</h3>
+            <p>Calculate GST, VAT, and other taxes</p>
+          </div>
+          
+          <div class="tool-card" onclick="openCurrencyConverter()">
+            <div class="tool-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <h3>Currency Converter</h3>
+            <p>Convert between different currencies</p>
+          </div>
+          
+          <div class="tool-card" onclick="openLoanCalculator()">
+            <div class="tool-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <h3>Loan Calculator</h3>
+            <p>Calculate EMI and interest payments</p>
+          </div>
+          
+          <div class="tool-card" onclick="openInvestmentCalculator()">
+            <div class="tool-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Investment Calculator</h3>
+            <p>Calculate returns on investments</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tax Calculator Modal -->
+    <div id="taxCalculator" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Tax Calculator</h2>
+          <button class="close-modal" onclick="closeModal('taxCalculator')">&times;</button>
+        </div>
+        
+        <div class="calculator-form">
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount">
+          </div>
+          
+          <div class="form-group">
+            <label for="taxRate">Tax Rate (%)</label>
+            <input type="number" id="taxRate" placeholder="Enter tax rate">
+          </div>
+          
+          <div class="form-group">
+            <label for="taxType">Tax Type</label>
+            <select id="taxType">
+              <option value="gst">GST</option>
+              <option value="vat">VAT</option>
+              <option value="sales">Sales Tax</option>
+            </select>
+          </div>
+          
+          <button class="save-settings" onclick="calculateTax()">Calculate Tax</button>
+          
+          <div class="result" id="taxResult">
+            <!-- Tax calculation result will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" onclick="openPage('settings.html')">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('search.html')">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('scanner.html')">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('new-transaction.html')">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon active" onclick="openPage('calculator.html')">
+        <i class="fas fa-calculator"></i>
+        <span>Calculator</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="ent_main_js.js"></script>
+  <script src="calculator.js"></script>
+</body>
+</html>
