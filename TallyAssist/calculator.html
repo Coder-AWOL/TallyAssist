@@ -16,12 +16,11 @@
         <i class="fas fa-bars"></i>
       </div>
       <div id="menu" class="dropdown-menu">
-        <a href="#" onclick="openPage('dashboard.html')"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#" onclick="openPage('reports.html')"><i class="fas fa-chart-bar"></i> Reports</a>
-        <a href="#" onclick="openPage('transactions.html')"><i class="fas fa-exchange-alt"></i> Transactions</a>
-        <a href="#" onclick="openPage('invoices.html')"><i class="fas fa-file-invoice"></i> Invoices</a>
-        <a href="#" onclick="openPage('support.html')"><i class="fas fa-headset"></i> Support</a>
-      </div>
+  <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+  <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+  <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+</div>
 
       <div class="logo-title" onclick="openPage('ent_main_html.html')">
         <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
@@ -163,9 +162,9 @@
 
     <!-- Bottom Bar -->
     <div class="bottombar">
-      <div class="bottom-icon" onclick="openPage('settings.html')">
-        <i class="fas fa-cog"></i>
-        <span>Settings</span>
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
       </div>
       <div class="bottom-icon" onclick="openPage('search.html')">
         <i class="fas fa-search"></i>

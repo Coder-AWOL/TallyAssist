@@ -357,3 +357,73 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = 'ent_main_html.html';
   }
 });
+
+// Theme functionality
+function initializeTheme() {
+  const darkThemeToggle = document.getElementById('darkThemeToggle');
+  const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+  
+  // Set initial state
+  if (darkThemeToggle) {
+    darkThemeToggle.checked = isDarkTheme;
+    setTheme(isDarkTheme);
+  }
+  
+  // Add event listener for theme toggle
+  if (darkThemeToggle) {
+    darkThemeToggle.addEventListener('change', function() {
+      setTheme(this.checked);
+    });
+  }
+}
+
+function setTheme(isDark) {
+  if (isDark) {
+    document.body.classList.add('dark-theme');
+    localStorage.setItem('darkTheme', 'true');
+  } else {
+    document.body.classList.remove('dark-theme');
+    localStorage.setItem('darkTheme', 'false');
+  }
+  
+  // Update charts if they exist (for dashboard)
+  updateChartsForTheme(isDark);
+}
+
+function updateChartsForTheme(isDark) {
+  // This function would be extended in dashboard.js to update chart colors
+  if (typeof window.updateChartThemes === 'function') {
+    window.updateChartThemes(isDark);
+  }
+}
+
+// Update the DOMContentLoaded event in ent_main_js.js
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is authenticated
+  if (!checkAuthentication()) {
+    return;
+  }
+  
+  // Update account information
+  updateAccountInfo();
+  
+  // Initialize theme
+  initializeTheme();
+  
+  // Add welcome message if element exists
+  const welcomeSection = document.querySelector('.welcome-section');
+  if (welcomeSection) {
+    const username = localStorage.getItem('tallyAssist_username') || 'User';
+    const welcomeHeading = welcomeSection.querySelector('h1');
+    if (welcomeHeading) {
+      welcomeHeading.innerHTML = `Welcome to TallyAssist, <span style="color: #0b3d91;">${username}</span>!`;
+    }
+  }
+  
+  // Initialize all dropdowns as closed
+  const menu = document.getElementById('menu');
+  const account = document.getElementById('account');
+  if (menu) menu.style.display = 'none';
+  if (account) account.style.display = 'none';
+});
+
