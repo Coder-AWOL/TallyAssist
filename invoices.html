@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - Invoices</title>
+  <link rel="stylesheet" href="ent_main_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Invoices Page -->
+  <div class="invoices-page" id="invoicesPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+        <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title">
+        <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" data-modal="faq">FAQ</span>
+          <span class="nav-link" data-modal="contact">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="account-icon">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> <span id="accountUsername">John Doe</span></p>
+          <p><i class="fas fa-envelope"></i> <span id="accountEmail">johndoe@example.com</span></p>
+          <p><i class="fas fa-crown"></i> <span id="accountPlan">Premium Plan</span></p>
+          
+          <!-- Dark Theme Toggle -->
+          <div class="theme-toggle">
+            <span><i class="fas fa-moon"></i> Dark Theme</span>
+            <label class="switch">
+              <input type="checkbox" id="darkThemeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="invoices-header">
+        <div class="header-content">
+          <h1><i class="fas fa-file-invoice-dollar"></i> Invoice Management</h1>
+          <p>Create, send, and track your professional invoices</p>
+        </div>
+        <button class="create-invoice-btn" id="openCreateInvoice">
+          <i class="fas fa-plus"></i> Create New Invoice
+        </button>
+      </div>
+
+      <!-- Invoice Stats -->
+      <div class="invoice-stats">
+        <div class="stat-card">
+          <div class="stat-icon pending">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Pending</h3>
+            <p class="stat-number" id="pendingCount">12</p>
+            <p class="stat-amount">₹0</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon paid">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Paid</h3>
+            <p class="stat-number" id="paidCount">28</p>
+            <p class="stat-amount">₹0</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon overdue">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Overdue</h3>
+            <p class="stat-number" id="overdueCount">5</p>
+            <p class="stat-amount">₹0</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon total">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Total</h3>
+            <p class="stat-number" id="totalCount">45</p>
+            <p class="stat-amount">₹0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invoice Filters and Actions -->
+      <div class="invoice-actions">
+        <div class="filter-group">
+          <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+            <option value="overdue">Overdue</option>
+            <option value="draft">Draft</option>
+          </select>
+          
+          <select id="typeFilter">
+            <option value="all">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          
+          <select id="dateFilter">
+            <option value="all">All Time</option>
+            <option value="7">Last 7 Days</option>
+            <option value="30">Last 30 Days</option>
+            <option value="90">Last 90 Days</option>
+          </select>
+        </div>
+        
+        <div class="action-buttons">
+          <button class="action-btn" id="exportBtn">
+            <i class="fas fa-download"></i> Export
+          </button>
+          <button class="action-btn" id="sendRemindersBtn">
+            <i class="fas fa-bell"></i> Send Reminders
+          </button>
+        </div>
+      </div>
+
+      <!-- Invoices List -->
+      <div class="invoices-list" id="invoicesList">
+        <!-- Invoices will be dynamically loaded here -->
+      </div>
+    </div>
+
+    <!-- Create Invoice Modal -->
+    <div id="createInvoiceModal" class="modal">
+      <div class="modal-content large-modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Create New Invoice</h2>
+          <button class="close-modal" data-modal="createInvoiceModal" onclick="closeModal('createInvoiceModal')">&times;</button>
+        </div>
+        
+        <form class="invoice-form" id="invoiceForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="invoiceTitle">Invoice Title *</label>
+              <input type="text" id="invoiceTitle" placeholder="e.g., Web Development, Office Supplies" required>
+            </div>
+            <div class="form-group">
+              <label for="invoiceType">Invoice Type *</label>
+              <select id="invoiceType" required>
+                <option value="income">Income (Money In)</option>
+                <option value="expense">Expense (Money Out)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="clientName">Client Name *</label>
+              <input type="text" id="clientName" placeholder="Enter client name" required>
+            </div>
+            <div class="form-group">
+              <label for="clientEmail">Client Email</label>
+              <input type="email" id="clientEmail" placeholder="Enter client email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="clientPhone">Client Phone</label>
+              <input type="tel" id="clientPhone" placeholder="Enter client phone">
+            </div>
+            <div class="form-group">
+              <label for="clientAddress">Client Address</label>
+              <input type="text" id="clientAddress" placeholder="Enter client address">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="invoiceDate">Invoice Date *</label>
+              <input type="date" id="invoiceDate" required>
+            </div>
+            <div class="form-group">
+              <label for="dueDate">Due Date *</label>
+              <input type="date" id="dueDate" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="invoiceItems">Invoice Items</label>
+            <div class="invoice-items" id="invoiceItemsContainer">
+              <div class="item-row header">
+                <span>Description</span>
+                <span>Quantity</span>
+                <span>Price</span>
+                <span>Amount</span>
+                <span>Action</span>
+              </div>
+              <div class="item-row" data-item-id="1">
+                <input type="text" placeholder="Item description" class="item-description">
+                <input type="number" placeholder="Qty" value="1" min="1" class="item-quantity">
+                <input type="number" placeholder="Price" step="0.01" class="item-price">
+                <span class="item-amount">₹0.00</span>
+                <button type="button" class="remove-item"><i class="fas fa-trash"></i></button>
+              </div>
+              <button type="button" class="add-item-btn" id="addItemBtn">
+                <i class="fas fa-plus"></i> Add Item
+              </button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea id="notes" placeholder="Additional notes..."></textarea>
+            </div>
+            <div class="invoice-summary">
+              <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotalAmount">₹0.00</span>
+              </div>
+              <div class="summary-row">
+                <label for="taxRate">Tax Rate (%):</label>
+                <input type="number" id="taxRate" value="18" step="0.01" min="0" max="100">
+              </div>
+              <div class="summary-row">
+                <span>Tax Amount:</span>
+                <span id="taxAmount">₹0.00</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total:</span>
+                <span id="totalAmount">₹0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="save-draft-btn" id="saveDraftBtn">Save as Draft</button>
+            <button type="submit" class="save-settings">Create Invoice</button>
+          </div>
+        </form>
+      </div>
+    </div>
+<!-- FAQ Modal -->
+<div id="faq" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Frequently Asked Questions</h2>
+      <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> What is TallyAssist?</p>
+      <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+      <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Is my financial data secure?</p>
+      <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+      <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+    </div>
+    
+    <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+    <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+    <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+    <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+    
+    <div style="margin-top: 20px;">
+      <h3>Send us a message</h3>
+      <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+      <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="bottom-icon" data-page="search.html">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon" data-page="scanner.html">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" data-page="new-transaction.html">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon" data-page="calculator.html">
+        <i class="fas fa-calculator"></i>
+        <span>Calculator</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="ent_main_js.js"></script>
+  <script src="invoice-manager.js"></script>
+  <script src="invoices.js"></script>
+</body>
+</html>

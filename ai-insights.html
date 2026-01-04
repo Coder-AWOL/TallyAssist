@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - AI Insights</title>
+  <link rel="stylesheet" href="ent_main_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- AI Insights Page -->
+  <div class="ai-insights-page" id="aiInsightsPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+        <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title">
+        <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" data-modal="faq">FAQ</span>
+          <span class="nav-link" data-modal="contact">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="account-icon">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> <span id="accountUsername">John Doe</span></p>
+          <p><i class="fas fa-envelope"></i> <span id="accountEmail">johndoe@example.com</span></p>
+          <p><i class="fas fa-crown"></i> <span id="accountPlan">Premium Plan</span></p>
+          
+          <!-- Dark Theme Toggle -->
+          <div class="theme-toggle">
+            <span><i class="fas fa-moon"></i> Dark Theme</span>
+            <label class="switch">
+              <input type="checkbox" id="darkThemeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="ai-insights-header">
+        <h1><i class="fas fa-robot"></i> AI Insights</h1>
+        <p>Intelligent recommendations to optimize your financial decisions</p>
+      </div>
+
+      <!-- AI Insights Overview -->
+      <div class="ai-overview">
+        <div class="ai-stats">
+          <div class="ai-stat-card">
+            <div class="ai-stat-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="ai-stat-content">
+              <h3>Insights Generated</h3>
+              <p class="ai-stat-number">24</p>
+              <p class="ai-stat-desc">This month</p>
+            </div>
+          </div>
+          
+          <div class="ai-stat-card">
+            <div class="ai-stat-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="ai-stat-content">
+              <h3>Potential Savings</h3>
+              <p class="ai-stat-number">₹12,500</p>
+              <p class="ai-stat-desc">Identified</p>
+            </div>
+          </div>
+          
+          <div class="ai-stat-card">
+            <div class="ai-stat-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <div class="ai-stat-content">
+              <h3>AI Accuracy</h3>
+              <p class="ai-stat-number">94%</p>
+              <p class="ai-stat-desc">Recommendation rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Insights -->
+      <div class="active-insights-section">
+        <div class="section-header">
+          <h3>Active Insights</h3>
+          <button class="refresh-insights-btn">
+            <i class="fas fa-sync-alt"></i> Refresh Insights
+          </button>
+        </div>
+        
+        <div class="insights-grid">
+          <div class="insight-card critical">
+            <div class="insight-header">
+              <div class="insight-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="insight-title">
+                <h4>Expense Optimization</h4>
+                <span class="insight-priority">High Priority</span>
+              </div>
+            </div>
+            <div class="insight-content">
+              <p>Your office supplies expense increased by 25% this month. Consider bulk purchasing from verified vendors for better rates.</p>
+              <div class="insight-metrics">
+                <div class="metric">
+                  <span class="metric-label">Current Cost:</span>
+                  <span class="metric-value">₹8,500/month</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Potential Savings:</span>
+                  <span class="metric-value positive">₹2,125/month</span>
+                </div>
+              </div>
+            </div>
+            <div class="insight-actions">
+              <button class="insight-action-btn primary">View Suppliers</button>
+              <button class="insight-action-btn secondary">Dismiss</button>
+            </div>
+          </div>
+
+          <div class="insight-card warning">
+            <div class="insight-header">
+              <div class="insight-icon">
+                <i class="fas fa-chart-pie"></i>
+              </div>
+              <div class="insight-title">
+                <h4>Revenue Concentration</h4>
+                <span class="insight-priority">Medium Priority</span>
+              </div>
+            </div>
+            <div class="insight-content">
+              <p>75% of your income comes from 3 major clients. Consider diversifying your client base to reduce business risk.</p>
+              <div class="insight-metrics">
+                <div class="metric">
+                  <span class="metric-label">Top 3 Clients:</span>
+                  <span class="metric-value">75% of revenue</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Recommended:</span>
+                  <span class="metric-value">Below 60%</span>
+                </div>
+              </div>
+            </div>
+            <div class="insight-actions">
+              <button class="insight-action-btn primary">Marketing Tips</button>
+              <button class="insight-action-btn secondary">Later</button>
+            </div>
+          </div>
+
+          <div class="insight-card info">
+            <div class="insight-header">
+              <div class="insight-icon">
+                <i class="fas fa-bell"></i>
+              </div>
+              <div class="insight-title">
+                <h4>Cash Flow Alert</h4>
+                <span class="insight-priority">Medium Priority</span>
+              </div>
+            </div>
+            <div class="insight-content">
+              <p>You have 3 invoices totaling ₹45,000 due in the next 7 days. Early collection can improve your cash flow position.</p>
+              <div class="insight-metrics">
+                <div class="metric">
+                  <span class="metric-label">Due Amount:</span>
+                  <span class="metric-value">₹45,000</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Due Date:</span>
+                  <span class="metric-value">Within 7 days</span>
+                </div>
+              </div>
+            </div>
+            <div class="insight-actions">
+              <button class="insight-action-btn primary">Send Reminders</button>
+              <button class="insight-action-btn secondary">Ignore</button>
+            </div>
+          </div>
+
+          <div class="insight-card success">
+            <div class="insight-header">
+              <div class="insight-icon">
+                <i class="fas fa-piggy-bank"></i>
+              </div>
+              <div class="insight-title">
+                <h4>Tax Savings Opportunity</h4>
+                <span class="insight-priority">Low Priority</span>
+              </div>
+            </div>
+            <div class="insight-content">
+              <p>You can save approximately ₹15,000 in taxes by claiming eligible business deductions for equipment purchases.</p>
+              <div class="insight-metrics">
+                <div class="metric">
+                  <span class="metric-label">Potential Savings:</span>
+                  <span class="metric-value positive">₹15,000</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Deadline:</span>
+                  <span class="metric-value">45 days</span>
+                </div>
+              </div>
+            </div>
+            <div class="insight-actions">
+              <button class="insight-action-btn primary">Learn More</button>
+              <button class="insight-action-btn secondary">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historical Insights -->
+      <div class="historical-insights">
+        <div class="section-header">
+          <h3>Historical Insights</h3>
+          <div class="time-filter">
+            <select id="insightTimeFilter">
+              <option value="7">Last 7 Days</option>
+              <option value="30" selected>Last 30 Days</option>
+              <option value="90">Last 90 Days</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="insights-history">
+          <div class="history-item implemented">
+            <div class="history-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="history-content">
+              <h4>Software Subscription Optimized</h4>
+              <p>Switched to annual billing for software tools, saving ₹8,400 annually</p>
+              <span class="history-date">Implemented 2 days ago</span>
+            </div>
+            <div class="history-savings positive">
+              +₹8,400
+            </div>
+          </div>
+          
+          <div class="history-item implemented">
+            <div class="history-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="history-content">
+              <h4>Vendor Negotiation Success</h4>
+              <p>Renegotiated contract with primary supplier, reducing costs by 12%</p>
+              <span class="history-date">Implemented 1 week ago</span>
+            </div>
+            <div class="history-savings positive">
+              +₹5,200
+            </div>
+          </div>
+          
+          <div class="history-item dismissed">
+            <div class="history-icon">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="history-content">
+              <h4>Office Space Optimization</h4>
+              <p>Suggested remote work policy to reduce office space costs</p>
+              <span class="history-date">Dismissed 2 weeks ago</span>
+            </div>
+            <div class="history-savings neutral">
+              —
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- FAQ Modal -->
+<div id="faq" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Frequently Asked Questions</h2>
+      <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> What is TallyAssist?</p>
+      <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+      <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Is my financial data secure?</p>
+      <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+      <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+    </div>
+    
+    <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+    <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+    <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+    <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+    
+    <div style="margin-top: 20px;">
+      <h3>Send us a message</h3>
+      <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+      <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="bottom-icon" data-page="search.html">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon" data-page="scanner.html">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" data-page="new-transaction.html">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon active" data-page="ai-insights.html">
+        <i class="fas fa-robot"></i>
+        <span>AI Insights</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="ent_main_js.js"></script>
+  <script src="ai-insights.js"></script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - Document Scanner</title>
+  <link rel="stylesheet" href="ent_main_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Scanner Page -->
+  <div class="scanner-page" id="scannerPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+        <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title">
+        <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" data-modal="faq">FAQ</span>
+          <span class="nav-link" data-modal="contact">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="account-icon">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> <span id="accountUsername">John Doe</span></p>
+          <p><i class="fas fa-envelope"></i> <span id="accountEmail">johndoe@example.com</span></p>
+          <p><i class="fas fa-crown"></i> <span id="accountPlan">Premium Plan</span></p>
+          
+          <!-- Dark Theme Toggle -->
+          <div class="theme-toggle">
+            <span><i class="fas fa-moon"></i> Dark Theme</span>
+            <label class="switch">
+              <input type="checkbox" id="darkThemeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="scanner-header">
+        <h1><i class="fas fa-camera"></i> Document Scanner</h1>
+        <p>Scan receipts, invoices, and documents for automatic data extraction</p>
+      </div>
+
+      <!-- Scanner Container -->
+      <div class="scanner-container">
+        <!-- Camera View -->
+        <div class="camera-section" id="cameraSection">
+          <div class="camera-preview">
+            <video id="cameraVideo" autoplay playsinline></video>
+            <canvas id="cameraCanvas" style="display: none;"></canvas>
+            <div class="camera-overlay">
+              <div class="scan-frame">
+                <div class="scan-corners">
+                  <div class="corner top-left"></div>
+                  <div class="corner top-right"></div>
+                  <div class="corner bottom-left"></div>
+                  <div class="corner bottom-right"></div>
+                </div>
+                <p>Align document within frame</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="camera-controls">
+            <button class="camera-btn capture-btn" id="captureBtn">
+              <i class="fas fa-camera"></i>
+              <span>Capture</span>
+            </button>
+            
+            <button class="camera-btn switch-camera-btn" id="switchCameraBtn">
+              <i class="fas fa-sync-alt"></i>
+              <span>Switch Camera</span>
+            </button>
+            
+            <button class="camera-btn cancel-btn" id="cancelCameraBtn">
+              <i class="fas fa-times"></i>
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Section (Hidden initially) -->
+        <div class="preview-section hidden" id="previewSection">
+          <div class="preview-image">
+            <img id="capturedImage" src="" alt="Captured document">
+            <canvas id="previewCanvas" style="display: none;"></canvas>
+          </div>
+          
+          <div class="preview-controls">
+            <button class="preview-btn retake-btn" id="retakeBtn">
+              <i class="fas fa-redo"></i>
+              <span>Retake</span>
+            </button>
+            
+            <button class="preview-btn process-btn" id="processBtn">
+              <i class="fas fa-robot"></i>
+              <span>Process with AI</span>
+            </button>
+            
+            <button class="preview-btn save-btn" id="saveBtn">
+              <i class="fas fa-save"></i>
+              <span>Save Image</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Processing Section (Hidden initially) -->
+        <div class="processing-section hidden" id="processingSection">
+          <div class="processing-animation">
+            <div class="spinner"></div>
+            <h3>AI is processing your document...</h3>
+            <p>Extracting text and data from your image</p>
+          </div>
+        </div>
+
+        <!-- Results Section (Hidden initially) -->
+        <div class="results-section hidden" id="resultsSection">
+          <div class="results-header">
+            <h3><i class="fas fa-check-circle"></i> Document Processed Successfully</h3>
+            <p>AI has extracted the following information:</p>
+          </div>
+          
+          <div class="extracted-data">
+            <div class="data-card">
+              <h4>Document Type</h4>
+              <p id="docType">Receipt</p>
+            </div>
+            
+            <div class="data-card">
+              <h4>Vendor/Company</h4>
+              <p id="vendorName">ABC Electronics Store</p>
+            </div>
+            
+            <div class="data-card">
+              <h4>Total Amount</h4>
+              <p id="totalAmount">₹8,500.00</p>
+            </div>
+            
+            <div class="data-card">
+              <h4>Date</h4>
+              <p id="documentDate">March 15, 2024</p>
+            </div>
+            
+            <div class="data-card full-width">
+              <h4>Items</h4>
+              <div class="items-list">
+                <div class="item-row">
+                  <span>Laptop Stand</span>
+                  <span>₹3,500.00</span>
+                </div>
+                <div class="item-row">
+                  <span>Wireless Mouse</span>
+                  <span>₹1,200.00</span>
+                </div>
+                <div class="item-row">
+                  <span>Keyboard</span>
+                  <span>₹2,800.00</span>
+                </div>
+                <div class="item-row">
+                  <span>GST (18%)</span>
+                  <span>₹1,350.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="results-actions">
+            <button class="action-btn secondary" id="newScanBtn">
+              <i class="fas fa-camera"></i>
+              New Scan
+            </button>
+            <button class="action-btn primary" id="createExpenseBtn">
+              <i class="fas fa-plus"></i>
+              Create Expense
+            </button>
+            <button class="action-btn primary" id="saveToInvoicesBtn">
+              <i class="fas fa-file-invoice"></i>
+              Save to Invoices
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scanner Tips -->
+      <div class="scanner-tips">
+        <h3><i class="fas fa-lightbulb"></i> Scanning Tips</h3>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <div class="tip-content">
+              <h4>Good Lighting</h4>
+              <p>Ensure adequate lighting for clear image capture</p>
+            </div>
+          </div>
+          
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-crop-alt"></i>
+            </div>
+            <div class="tip-content">
+              <h4>Align Properly</h4>
+              <p>Keep the document flat and within the frame</p>
+            </div>
+          </div>
+          
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="tip-content">
+              <h4>Clear Text</h4>
+              <p>Make sure all text is readable and not blurry</p>
+            </div>
+          </div>
+          
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="tip-content">
+              <h4>Secure Data</h4>
+              <p>Your documents are processed securely with AI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- FAQ Modal -->
+<div id="faq" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Frequently Asked Questions</h2>
+      <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> What is TallyAssist?</p>
+      <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+      <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Is my financial data secure?</p>
+      <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+      <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+    </div>
+    
+    <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+    <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+    <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+    <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+    
+    <div style="margin-top: 20px;">
+      <h3>Send us a message</h3>
+      <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+      <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="bottom-icon" data-page="search.html">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon active" data-page="scanner.html">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" data-page="new-transaction.html">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon" data-page="calculator.html">
+        <i class="fas fa-calculator"></i>
+        <span>Calculator</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="ent_main_js.js"></script>
+  <script src="scanner.js"></script>
+</body>
+</html>

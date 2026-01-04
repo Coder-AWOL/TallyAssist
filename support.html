@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - Support</title>
+  <link rel="stylesheet" href="ent_main_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Support Page -->
+  <div class="support-page" id="supportPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+        <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title">
+        <img src="logo.png" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" data-modal="faq">FAQ</span>
+          <span class="nav-link" data-modal="contact">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="account-icon">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> <span id="accountUsername">John Doe</span></p>
+          <p><i class="fas fa-envelope"></i> <span id="accountEmail">johndoe@example.com</span></p>
+          <p><i class="fas fa-crown"></i> <span id="accountPlan">Premium Plan</span></p>
+          
+          <!-- Dark Theme Toggle -->
+          <div class="theme-toggle">
+            <span><i class="fas fa-moon"></i> Dark Theme</span>
+            <label class="switch">
+              <input type="checkbox" id="darkThemeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="support-header">
+        <h1><i class="fas fa-headset"></i> Support Center</h1>
+        <p>We're here to help you get the most out of TallyAssist</p>
+      </div>
+
+      <!-- Support Options -->
+      <div class="support-options">
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3>Knowledge Base</h3>
+          <p>Browse our comprehensive documentation and tutorials</p>
+          <button class="support-action-btn">Explore Guides</button>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>Live Chat</h3>
+          <p>Chat with our support team in real-time</p>
+          <button class="support-action-btn">Start Chat</button>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email Support</h3>
+          <p>Send us a detailed message and we'll respond within 24 hours</p>
+          <button class="support-action-btn" onclick="openModal('contact')">Send Email</button>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3>Phone Support</h3>
+          <p>Call us directly for immediate assistance</p>
+          <button class="support-action-btn">Call Now</button>
+        </div>
+      </div>
+
+      <!-- Quick Help Section -->
+      <div class="quick-help-section">
+        <div class="section-header">
+          <h3>Quick Help Topics</h3>
+        </div>
+        
+        <div class="help-topics">
+          <div class="help-topic">
+            <h4><i class="fas fa-file-invoice"></i> Invoice Issues</h4>
+            <ul>
+              <li><a href="#">How to create and send invoices</a></li>
+              <li><a href="#">Troubleshooting payment issues</a></li>
+              <li><a href="#">Managing invoice templates</a></li>
+            </ul>
+          </div>
+          
+          <div class="help-topic">
+            <h4><i class="fas fa-chart-bar"></i> Reporting Problems</h4>
+            <ul>
+              <li><a href="#">Understanding financial reports</a></li>
+              <li><a href="#">Exporting data to Excel</a></li>
+              <li><a href="#">Customizing dashboard views</a></li>
+            </ul>
+          </div>
+          
+          <div class="help-topic">
+            <h4><i class="fas fa-cog"></i> Account Settings</h4>
+            <ul>
+              <li><a href="#">Updating company information</a></li>
+              <li><a href="#">Managing user permissions</a></li>
+              <li><a href="#">Changing subscription plans</a></li>
+            </ul>
+          </div>
+          
+          <div class="help-topic">
+            <h4><i class="fas fa-shield-alt"></i> Security & Privacy</h4>
+            <ul>
+              <li><a href="#">Data protection measures</a></li>
+              <li><a href="#">Two-factor authentication</a></li>
+              <li><a href="#">GDPR compliance</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Status -->
+      <div class="system-status-section">
+        <div class="section-header">
+          <h3>System Status</h3>
+          <span class="status-indicator operational">
+            <i class="fas fa-circle"></i> All Systems Operational
+          </span>
+        </div>
+        
+        <div class="status-grid">
+          <div class="status-item operational">
+            <div class="status-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="status-info">
+              <h4>Application</h4>
+              <p>Running smoothly</p>
+            </div>
+          </div>
+          
+          <div class="status-item operational">
+            <div class="status-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="status-info">
+              <h4>Database</h4>
+              <p>No issues reported</p>
+            </div>
+          </div>
+          
+          <div class="status-item operational">
+            <div class="status-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="status-info">
+              <h4>Payment Processing</h4>
+              <p>Fully functional</p>
+            </div>
+          </div>
+          
+          <div class="status-item operational">
+            <div class="status-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="status-info">
+              <h4>API Services</h4>
+              <p>Stable performance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="bottom-icon" data-page="search.html">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon" data-page="scanner.html">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" data-page="new-transaction.html">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon active" data-page="support.html">
+        <i class="fas fa-headset"></i>
+        <span>Support</span>
+      </div>
+    </div>
+  </div>
+<!-- FAQ Modal -->
+<div id="faq" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Frequently Asked Questions</h2>
+      <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> What is TallyAssist?</p>
+      <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+      <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Is my financial data secure?</p>
+      <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+      <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+    </div>
+    
+    <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+    <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+    <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+    <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+    
+    <div style="margin-top: 20px;">
+      <h3>Send us a message</h3>
+      <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+      <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+    </div>
+  </div>
+</div>
+
+  <script src="ent_main_js.js"></script>
+  <script src="support.js"></script>
+</body>
+</html>

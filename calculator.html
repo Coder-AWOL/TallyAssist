@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TallyAssist - Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Calculator Page -->
+  <div class="calculator-page" id="calculatorPage">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="menu" class="dropdown-menu">
+        <a href="#" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" data-page="invoices.html"><i class="fas fa-file-invoice"></i> Invoices</a>
+        <a href="#" data-page="ai-insights.html"><i class="fas fa-robot"></i> AI Insights</a>
+        <a href="#" data-page="support.html"><i class="fas fa-headset"></i> Support</a>
+      </div>
+
+      <div class="logo-title">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDBDOC45NTQgMCAwIDguOTU0IDAgMjBTOC45NTQgNDAgMjAgNDBTNDAgMzEuMDQ2IDQwIDIwQzQwIDguOTU0IDMxLjA0NiAwIDIwIDBaTTIwIDM2QzExLjE2MyAzNiA0IDI4LjgzNyA0IDIwQzQgMTEuMTYzIDExLjE2MyA0IDIwIDRDMjguODM3IDQgMzYgMTEuMTYzIDM2IDIwQzM2IDI4LjgzNyAyOC44MzcgMzYgMjAgMzZaIiBmaWxsPSIjNDA5OUZGIi8+CjxwYXRoIGQ9Ik0xNi41IDE1LjVIMjMuNVYyMi41SDE2LjVWMTUuNVpNMTYuNSAyNC41SDIzLjVWMjguNUgxNi41VjI0LjVaIiBmaWxsPSIjNDA5OUZGIi8+Cjwvc3ZnPgo=" alt="TallyAssist Logo" class="logo-img-small">
+        <h2>TallyAssist</h2>
+        <div class="nav-links">
+          <span class="nav-link" onclick="openModal('faq')">FAQ</span>
+          <span class="nav-link" onclick="openModal('contact')">Contact</span>
+        </div>
+      </div>
+
+      <div class="right-account">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </div>
+        <div class="account-icon" onclick="toggleAccount()">
+          <i class="fas fa-user-circle fa-2x"></i>
+        </div>
+        <div id="account" class="account-info">
+          <h3>Account Information</h3>
+          <p><i class="fas fa-user"></i> John Doe</p>
+          <p><i class="fas fa-envelope"></i> johndoe@example.com</p>
+          <p><i class="fas fa-crown"></i> Premium Plan</p>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="calculator-header">
+        <h1><i class="fas fa-calculator"></i> Financial Calculator</h1>
+        <p>Perform quick calculations for your accounting needs</p>
+      </div>
+
+      <div class="calculator-container">
+        <div class="calculator-display">
+          <div class="previous-operand" id="previousOperand"></div>
+          <div class="current-operand" id="currentOperand">0</div>
+        </div>
+        
+        <div class="calculator-buttons">
+          <button class="calc-btn calc-btn-function" data-action="clear">C</button>
+          <button class="calc-btn calc-btn-function" data-action="delete">DEL</button>
+          <button class="calc-btn calc-btn-function" data-action="percentage">%</button>
+          <button class="calc-btn calc-btn-operator" data-action="divide">÷</button>
+          
+          <button class="calc-btn" data-number="7">7</button>
+          <button class="calc-btn" data-number="8">8</button>
+          <button class="calc-btn" data-number="9">9</button>
+          <button class="calc-btn calc-btn-operator" data-action="multiply">×</button>
+          
+          <button class="calc-btn" data-number="4">4</button>
+          <button class="calc-btn" data-number="5">5</button>
+          <button class="calc-btn" data-number="6">6</button>
+          <button class="calc-btn calc-btn-operator" data-action="subtract">−</button>
+          
+          <button class="calc-btn" data-number="1">1</button>
+          <button class="calc-btn" data-number="2">2</button>
+          <button class="calc-btn" data-number="3">3</button>
+          <button class="calc-btn calc-btn-operator" data-action="add">+</button>
+          
+          <button class="calc-btn calc-btn-zero" data-number="0">0</button>
+          <button class="calc-btn" data-action="decimal">.</button>
+          <button class="calc-btn calc-btn-equals" data-action="calculate">=</button>
+        </div>
+      </div>
+
+      <div class="financial-tools">
+        <h2>Financial Tools</h2>
+        <div class="tools-grid">
+          <div class="tool-card" onclick="openModal('taxCalculator')">
+            <div class="tool-icon">
+              <i class="fas fa-percentage"></i>
+            </div>
+            <h3>Tax Calculator</h3>
+            <p>Calculate GST, VAT, and other taxes</p>
+          </div>
+          
+          <div class="tool-card" onclick="openModal('currencyConverter')">
+            <div class="tool-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <h3>Currency Converter</h3>
+            <p>Convert between different currencies</p>
+          </div>
+          
+          <div class="tool-card" onclick="openModal('loanCalculator')">
+            <div class="tool-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <h3>Loan Calculator</h3>
+            <p>Calculate EMI and interest payments</p>
+          </div>
+          
+          <div class="tool-card" onclick="openModal('investmentCalculator')">
+            <div class="tool-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Investment Calculator</h3>
+            <p>Calculate returns on investments</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tax Calculator Modal -->
+    <div id="taxCalculator" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Tax Calculator</h2>
+          <button class="close-modal" onclick="closeModal('taxCalculator')">&times;</button>
+        </div>
+        
+        <div class="calculator-form">
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount" value="1000">
+          </div>
+          
+          <div class="form-group">
+            <label for="taxRate">Tax Rate (%)</label>
+            <input type="number" id="taxRate" placeholder="Enter tax rate" value="18">
+          </div>
+          
+          <div class="form-group">
+            <label for="taxType">Tax Type</label>
+            <select id="taxType">
+              <option value="gst">GST</option>
+              <option value="vat">VAT</option>
+              <option value="sales">Sales Tax</option>
+            </select>
+          </div>
+          
+          <button class="save-settings" onclick="calculateTax()">Calculate Tax</button>
+          
+          <div class="result" id="taxResult">
+            <!-- Tax calculation result will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loan Calculator Modal -->
+    <div id="loanCalculator" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Loan Calculator</h2>
+          <button class="close-modal" onclick="closeModal('loanCalculator')">&times;</button>
+        </div>
+        
+        <div class="calculator-form">
+          <div class="form-group">
+            <label for="loanAmount">Loan Amount ($)</label>
+            <input type="number" id="loanAmount" placeholder="Enter loan amount" value="10000">
+            <div class="range-container">
+              <input type="range" id="loanAmountRange" min="1000" max="100000" step="1000" value="10000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="loanInterestRate">Interest Rate (% per year)</label>
+            <input type="number" id="loanInterestRate" placeholder="Enter interest rate" value="8.5" step="0.1">
+            <div class="range-container">
+              <input type="range" id="loanInterestRateRange" min="1" max="30" step="0.1" value="8.5">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="loanTerm">Loan Term (months)</label>
+            <input type="number" id="loanTerm" placeholder="Enter loan term" value="60">
+            <div class="range-container">
+              <input type="range" id="loanTermRange" min="6" max="360" step="6" value="60">
+            </div>
+          </div>
+          
+          <button class="save-settings" onclick="calculateLoan()">Calculate EMI</button>
+          
+          <div class="result" id="loanResult">
+            <!-- Loan calculation result will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Currency Converter Modal -->
+    <div id="currencyConverter" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Currency Converter</h2>
+          <button class="close-modal" onclick="closeModal('currencyConverter')">&times;</button>
+        </div>
+        
+        <div class="calculator-form">
+          <div class="form-group">
+            <label for="fromAmount">Amount</label>
+            <input type="number" id="fromAmount" placeholder="Enter amount" value="100">
+          </div>
+          
+          <div class="form-group">
+            <label for="fromCurrency">From Currency</label>
+            <select id="fromCurrency">
+              <option value="USD">USD - US Dollar</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="GBP">GBP - British Pound</option>
+              <option value="INR">INR - Indian Rupee</option>
+              <option value="JPY">JPY - Japanese Yen</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="toCurrency">To Currency</label>
+            <select id="toCurrency">
+              <option value="EUR">EUR - Euro</option>
+              <option value="USD">USD - US Dollar</option>
+              <option value="GBP">GBP - British Pound</option>
+              <option value="INR">INR - Indian Rupee</option>
+              <option value="JPY">JPY - Japanese Yen</option>
+            </select>
+          </div>
+          
+          <button class="save-settings" onclick="convertCurrency()">Convert</button>
+          
+          <div class="result" id="currencyResult">
+            <!-- Currency conversion result will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment Calculator Modal -->
+    <div id="investmentCalculator" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Investment Calculator</h2>
+          <button class="close-modal" onclick="closeModal('investmentCalculator')">&times;</button>
+        </div>
+        
+        <div class="calculator-form">
+          <div class="form-group">
+            <label for="principalAmount">Principal Amount ($)</label>
+            <input type="number" id="principalAmount" placeholder="Enter principal amount" value="5000">
+          </div>
+          
+          <div class="form-group">
+            <label for="investmentRate">Annual Return Rate (%)</label>
+            <input type="number" id="investmentRate" placeholder="Enter return rate" value="7" step="0.1">
+          </div>
+          
+          <div class="form-group">
+            <label for="investmentYears">Investment Period (years)</label>
+            <input type="number" id="investmentYears" placeholder="Enter years" value="10">
+          </div>
+          
+          <div class="form-group">
+            <label for="monthlyContribution">Monthly Contribution ($)</label>
+            <input type="number" id="monthlyContribution" placeholder="Enter monthly contribution" value="100">
+          </div>
+          
+          <button class="save-settings" onclick="calculateInvestment()">Calculate Returns</button>
+          
+          <div class="result" id="investmentResult">
+            <!-- Investment calculation result will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faq" class="modal">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Frequently Asked Questions</h2>
+          <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+        </div>
+        
+        <div class="faq-item">
+          <p><b>Q:</b> What is TallyAssist?</p>
+          <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+        </div>
+        
+        <div class="faq-item">
+          <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+          <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+        </div>
+        
+        <div class="faq-item">
+          <p><b>Q:</b> Is my financial data secure?</p>
+          <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+        </div>
+        
+        <div class="faq-item">
+          <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+          <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact" class="modal">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Contact Us</h2>
+          <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+        </div>
+        
+        <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+        <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+        <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+        <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+        
+        <div style="margin-top: 20px;">
+          <h3>Send us a message</h3>
+          <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+          <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottombar">
+      <div class="bottom-icon" data-page="dashboard.html">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('search.html')">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('scanner.html')">
+        <i class="fas fa-camera"></i>
+        <span>Scan</span>
+      </div>
+      <div class="bottom-icon" onclick="openPage('new-transaction.html')">
+        <i class="fas fa-plus-circle"></i>
+        <span>New</span>
+      </div>
+      <div class="bottom-icon active" onclick="openPage('calculator.html')">
+        <i class="fas fa-calculator"></i>
+        <span>Calculator</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
