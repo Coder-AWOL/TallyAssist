@@ -1,4 +1,3 @@
-// Backend simulation using localStorage
 class AuthService {
   constructor() {
     this.users = JSON.parse(localStorage.getItem('tallyassist_users')) || [];
@@ -25,12 +24,11 @@ class AuthService {
   }
 
   registerUser(username, password, email) {
-    // Check if username already exists
+
     if (this.users.find(user => user.username === username)) {
       return { success: false, message: 'Username already exists' };
     }
 
-    // Check if email already exists
     if (this.users.find(user => user.email === email)) {
       return { success: false, message: 'Email already registered' };
     }
@@ -38,23 +36,21 @@ class AuthService {
     const user = {
       id: Date.now().toString(),
       username,
-      password: btoa(password), // Simple encoding (use proper hashing in production)
+      password: btoa(password), 
       email,
       createdAt: new Date().toISOString(),
-      plan: 'Premium Plan' // Default plan
+      plan: 'Premium Plan' 
     };
 
     this.users.push(user);
     this.saveUsers();
     
-    // Auto-login after registration
     this.saveCurrentUser({ id: user.id, username: user.username, email: user.email, plan: user.plan });
     
     return { success: true, message: 'User registered successfully', user: user };
   }
 
   loginUser(identifier, password) {
-    // Check if identifier is email or username
     const user = this.users.find(u => u.username === identifier || u.email === identifier);
     if (!user) {
       return { success: false, message: 'Invalid username/email or password' };
@@ -87,7 +83,7 @@ class AuthService {
     const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     this.resetTokens[token] = {
       email,
-      expires: Date.now() + 3600000 // 1 hour
+      expires: Date.now() + 3600000 
     };
     this.saveResetTokens();
     return token;
@@ -120,15 +116,12 @@ class AuthService {
   }
 }
 
-// Initialize auth service
 const authService = new AuthService();
 
-// DOM Elements
 const loginPage = document.getElementById('loginPage');
 const signupPage = document.getElementById('signupPage');
 const forgotPasswordPage = document.getElementById('forgotPasswordPage');
 
-// Password validation rules
 const passwordRules = {
   length: { regex: /.{8,}/, element: document.getElementById('ruleLength') },
   uppercase: { regex: /[A-Z]/, element: document.getElementById('ruleUppercase') },
@@ -137,7 +130,6 @@ const passwordRules = {
   special: { regex: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, element: document.getElementById('ruleSpecial') }
 };
 
-// Generate captcha
 function generateCaptcha() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let captcha = '';
@@ -147,14 +139,12 @@ function generateCaptcha() {
   return captcha;
 }
 
-// Initialize captchas
 let loginCaptcha = generateCaptcha();
 let signupCaptcha = generateCaptcha();
 
 document.getElementById('loginCaptchaText').textContent = loginCaptcha;
 document.getElementById('signupCaptchaText').textContent = signupCaptcha;
 
-// Show/hide password functionality
 function setupPasswordToggle(passwordId, buttonId) {
   const passwordInput = document.getElementById(passwordId);
   const showButton = document.getElementById(buttonId);
@@ -166,12 +156,10 @@ function setupPasswordToggle(passwordId, buttonId) {
   });
 }
 
-// Setup password toggles
 setupPasswordToggle('loginPassword', 'showLoginPassword');
 setupPasswordToggle('signupPassword', 'showSignupPassword');
 setupPasswordToggle('confirmPassword', 'showConfirmPassword');
 
-// Password validation
 document.getElementById('signupPassword').addEventListener('input', function(e) {
   const password = e.target.value;
   
@@ -188,7 +176,6 @@ document.getElementById('signupPassword').addEventListener('input', function(e) 
   validatePasswordMatch();
 });
 
-// Confirm password validation
 document.getElementById('confirmPassword').addEventListener('input', validatePasswordMatch);
 
 function validatePasswordMatch() {
@@ -203,12 +190,10 @@ function validatePasswordMatch() {
   }
 }
 
-// Check if all password rules are satisfied
 function isPasswordValid(password) {
   return Object.values(passwordRules).every(rule => rule.regex.test(password));
 }
 
-// Page navigation
 document.getElementById('showSignup').addEventListener('click', (e) => {
   e.preventDefault();
   loginPage.classList.add('hidden');
@@ -237,7 +222,6 @@ document.getElementById('backToLogin').addEventListener('click', (e) => {
   loginPage.classList.remove('hidden');
 });
 
-// Form submissions
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
   
@@ -245,7 +229,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   const password = document.getElementById('loginPassword').value;
   const captcha = document.getElementById('loginCaptcha').value;
   
-  // Validate captcha
   if (captcha !== loginCaptcha) {
     alert('Invalid captcha. Please try again.');
     loginCaptcha = generateCaptcha();
@@ -259,12 +242,10 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   if (result.success) {
     alert('Login successful!');
     
-    // Save user data to localStorage for main dashboard
     localStorage.setItem('tallyAssist_username', result.user.username);
     localStorage.setItem('tallyAssist_email', result.user.email);
     localStorage.setItem('tallyAssist_plan', result.user.plan);
     
-    // Redirect to main application
     window.location.href = 'ent_main_html.html';
   } else {
     alert(result.message);
@@ -283,7 +264,6 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
   const confirmPassword = document.getElementById('confirmPassword').value;
   const captcha = document.getElementById('signupCaptcha').value;
   
-  // Validate password
   if (!isPasswordValid(password)) {
     alert('Please ensure your password meets all requirements.');
     return;
@@ -294,7 +274,6 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
     return;
   }
   
-  // Validate captcha
   if (captcha !== signupCaptcha) {
     alert('Invalid captcha. Please try again.');
     signupCaptcha = generateCaptcha();
@@ -308,12 +287,10 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
   if (result.success) {
     alert('Registration successful! Welcome to TallyAssist.');
     
-    // Save user data to localStorage for main dashboard
     localStorage.setItem('tallyAssist_username', result.user.username);
     localStorage.setItem('tallyAssist_email', result.user.email);
     localStorage.setItem('tallyAssist_plan', result.user.plan);
     
-    // Redirect to main application
     window.location.href = 'ent_main_html.html';
   } else {
     alert(result.message);
@@ -332,10 +309,8 @@ document.getElementById('forgotPasswordForm').addEventListener('submit', functio
   
   if (user) {
     const token = authService.generateResetToken(email);
-    // In a real application, you would send an email with this token
     alert(`Password reset link has been sent to ${email}. For demo purposes, your reset token is: ${token}`);
     
-    // Simulate redirect to reset password page
     setTimeout(() => {
       alert('In a real application, the user would be redirected to a password reset page with the token.');
     }, 1000);
@@ -346,11 +321,9 @@ document.getElementById('forgotPasswordForm').addEventListener('submit', functio
   document.getElementById('forgotPasswordForm').reset();
 });
 
-// Check if user is already logged in (for page refresh/redirect)
 document.addEventListener('DOMContentLoaded', function() {
   const currentUser = authService.getCurrentUser();
   if (currentUser && window.location.pathname.includes('ent_html.html')) {
-    // User is already logged in, redirect to main page
     localStorage.setItem('tallyAssist_username', currentUser.username);
     localStorage.setItem('tallyAssist_email', currentUser.email);
     localStorage.setItem('tallyAssist_plan', currentUser.plan);
@@ -358,18 +331,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Theme functionality
 function initializeTheme() {
   const darkThemeToggle = document.getElementById('darkThemeToggle');
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
   
-  // Set initial state
   if (darkThemeToggle) {
     darkThemeToggle.checked = isDarkTheme;
     setTheme(isDarkTheme);
   }
   
-  // Add event listener for theme toggle
   if (darkThemeToggle) {
     darkThemeToggle.addEventListener('change', function() {
       setTheme(this.checked);
@@ -386,31 +356,24 @@ function setTheme(isDark) {
     localStorage.setItem('darkTheme', 'false');
   }
   
-  // Update charts if they exist (for dashboard)
   updateChartsForTheme(isDark);
 }
 
 function updateChartsForTheme(isDark) {
-  // This function would be extended in dashboard.js to update chart colors
   if (typeof window.updateChartThemes === 'function') {
     window.updateChartThemes(isDark);
   }
 }
 
-// Update the DOMContentLoaded event in ent_main_js.js
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if user is authenticated
   if (!checkAuthentication()) {
     return;
   }
   
-  // Update account information
   updateAccountInfo();
   
-  // Initialize theme
   initializeTheme();
   
-  // Add welcome message if element exists
   const welcomeSection = document.querySelector('.welcome-section');
   if (welcomeSection) {
     const username = localStorage.getItem('tallyAssist_username') || 'User';
@@ -420,10 +383,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Initialize all dropdowns as closed
   const menu = document.getElementById('menu');
   const account = document.getElementById('account');
   if (menu) menu.style.display = 'none';
   if (account) account.style.display = 'none';
 });
-

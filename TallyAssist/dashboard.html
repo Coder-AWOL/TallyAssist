@@ -79,8 +79,8 @@
           </div>
           <div class="card-content">
             <h3>Total Income</h3>
-            <p class="amount" id="totalIncome">₹85,420</p>
-            <p class="trend positive"><i class="fas fa-arrow-up"></i> 12% from last period</p>
+            <p class="amount" id="totalIncome">₹0</p>
+            <p class="trend neutral"></p>
           </div>
         </div>
 
@@ -90,8 +90,8 @@
           </div>
           <div class="card-content">
             <h3>Total Expenses</h3>
-            <p class="amount" id="totalExpenses">₹42,150</p>
-            <p class="trend negative"><i class="fas fa-arrow-up"></i> 8% from last period</p>
+            <p class="amount" id="totalExpenses">₹0</p>
+            <p class="trend neutral"></p>
           </div>
         </div>
 
@@ -101,8 +101,8 @@
           </div>
           <div class="card-content">
             <h3>Net Profit</h3>
-            <p class="amount" id="netProfit">₹43,270</p>
-            <p class="trend positive"><i class="fas fa-arrow-up"></i> 15% from last period</p>
+            <p class="amount" id="netProfit">₹0</p>
+            <p class="trend neutral"></p>
           </div>
         </div>
 
@@ -112,8 +112,8 @@
           </div>
           <div class="card-content">
             <h3>Pending Invoices</h3>
-            <p class="amount" id="pendingInvoices">12</p>
-            <p class="trend neutral">₹24,500 total</p>
+            <p class="amount" id="pendingInvoices">0</p>
+            <p class="trend neutral">₹0</p>
           </div>
         </div>
       </div>
@@ -146,6 +146,56 @@
         </div>
       </div>
     </div>
+<!-- FAQ Modal -->
+<div id="faq" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Frequently Asked Questions</h2>
+      <button class="close-modal" data-modal="faq" onclick="closeModal('faq')">&times;</button>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> What is TallyAssist?</p>
+      <p><b>A:</b> TallyAssist is an AI-powered accounting tool designed to simplify financial management for businesses of all sizes.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I generate invoices with TallyAssist?</p>
+      <p><b>A:</b> Yes, you can create, customize, and send professional invoices directly from the platform.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Is my financial data secure?</p>
+      <p><b>A:</b> Absolutely. We use bank-level encryption and follow strict security protocols to protect your data.</p>
+    </div>
+    
+    <div class="faq-item">
+      <p><b>Q:</b> Can I access TallyAssist on mobile?</p>
+      <p><b>A:</b> Yes, our platform is fully responsive and works seamlessly on all devices.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-modal" data-modal="contact" onclick="closeModal('contact')">&times;</button>
+    </div>
+    
+    <p><i class="fas fa-envelope"></i> <b>Email:</b> support@tallyassist.com</p>
+    <p><i class="fas fa-phone"></i> <b>Phone:</b> +91 98765 43210</p>
+    <p><i class="fas fa-clock"></i> <b>Live Chat:</b> Available 9 AM - 6 PM IST</p>
+    <p><i class="fas fa-map-marker-alt"></i> <b>Address:</b> 123 Business Street, Financial District, Mumbai, India</p>
+    
+    <div style="margin-top: 20px;">
+      <h3>Send us a message</h3>
+      <textarea placeholder="Your message..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;"></textarea>
+      <button class="save-settings" style="margin-top: 10px;">Send Message</button>
+    </div>
+  </div>
+</div>
 
     <!-- Bottom Bar -->
     <div class="bottombar">
